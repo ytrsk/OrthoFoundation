@@ -1,0 +1,74 @@
+processes:     
+  KNEE_MULTIDATA:
+    process: data
+    input_name: 
+    output_name: 
+      - images
+    bs: 24
+    num_workers: 16
+    bs_val: 2
+    tag: knee_multidata
+    args:
+      root: /root/autodl-tmp/data
+      # N: 20000
+
+  teacher_model:
+    process: model
+    input_name:
+      - images
+    output_name:
+      - t_proj
+    ddp: True
+    crop_wrapper: teacher
+    tag: dinov3_vit
+    args:
+      backbone: vitl16
+      # backbone: vitb16
+      mode: finetune
+      ft_nums: 24
+    
+
+  student_model:
+    process: model
+    input_name:
+      - images
+    output_name:
+      - s_proj
+    ddp: True
+    crop_wrapper: student
+    tag: dinov3_vit
+    args:
+      backbone: vitl16
+      # backbone: vitb16
+      mode: finetune
+      ft_nums: 24
+
+    opt: 
+      lr: 0.00001
+      tag: AdamW
+      weight_decay: 0.01
+    sch: 
+      tag: PolynomialLR
+      total_iters: 100000
+      power: 1.
+  
+
+  dino_loss:
+    process: metric
+    input_name:
+      - t_proj
+      - s_proj
+      - epoch
+    output_name:
+      - loss/dino
+    tag: dino
+    lambda: 0.1
+
+train:
+  seed: 12358
+  max_iter: 100000
+  load_iter: -1
+  show_interval: 20
+  snapshot_interval: 3000
+  valid_interval: 5000000
+  amp: True
