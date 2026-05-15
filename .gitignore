@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Training artifacts (do NOT commit)
+logs/
+**/logs/
+**/result/
+**/event/
+**/events.out.tfevents.*
+*.pth
+*.pt
+*.ckpt
+
+# Datasets / archives (do NOT commit)
+*.zip
+*.7z
+*.tar
+*.tar.gz
+
+
