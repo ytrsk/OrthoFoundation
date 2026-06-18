@@ -59,21 +59,7 @@ OrthoFoundation uses a Vision Transformer backbone initialized with DINOv3-L wei
 
 ## Model Weights
 
-The released OrthoFoundation-L checkpoint is provided in the repository root:
-
-```text
-OrthoFoudation-L.pth
-```
-
-This checkpoint is the continued-pretrained DINOv3-L ViT backbone used for downstream fine-tuning in the paper. It can be loaded with PyTorch:
-
-```python
-import torch
-
-checkpoint = torch.load("OrthoFoudation-L.pth", map_location="cpu")
-```
-
-For a fresh clone, make sure the checkpoint file is present before running downstream fine-tuning. If the repository is cloned through Git LFS, run `git lfs pull` after cloning.
+The OrthoFoundation-L pretrained weights are released in this repository as `OrthoFoudation-L.pth`.
 
 ## Training
 
