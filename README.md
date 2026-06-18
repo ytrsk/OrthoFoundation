@@ -20,6 +20,7 @@ The study pretrained OrthoFoundation on **1,251,655 knee images**, including **3
 
 ```text
 OrthoFoundation/
+  OrthoFoudation-L.pth  Released OrthoFoundation-L checkpoint
   datasets/              Dataset definitions and DINO augmentations
   exp/pretrain/           YAML configs for DINOv2 and DINOv3 pretraining
   metric/                 DINO loss and metric wrapper
@@ -55,6 +56,24 @@ Publicly available datasets, including OAI and fastMRI, can be downloaded from t
 Backbone selection was performed using transferability estimation on the knee ACL injury task. The candidate backbones were evaluated with five transferability estimators: SFDA, PED, LogME, PARC, and ITM. DINOv3-L was selected based on its consistently strong ranking across these estimators.
 
 OrthoFoundation uses a Vision Transformer backbone initialized with DINOv3-L weights. The model is adapted to orthopedic imaging through continued self-supervised pretraining on the million-scale knee imaging corpus. The pretraining follows a DINO-style student-teacher framework: the teacher weights are updated as an exponential moving average of the student weights, the student processes local and global views, and the teacher observes global views.
+
+## Model Weights
+
+The released OrthoFoundation-L checkpoint is provided in the repository root:
+
+```text
+OrthoFoudation-L.pth
+```
+
+This checkpoint is the continued-pretrained DINOv3-L ViT backbone used for downstream fine-tuning in the paper. It can be loaded with PyTorch:
+
+```python
+import torch
+
+checkpoint = torch.load("OrthoFoudation-L.pth", map_location="cpu")
+```
+
+For a fresh clone, make sure the checkpoint file is present before running downstream fine-tuning. If the repository is cloned through Git LFS, run `git lfs pull` after cloning.
 
 ## Training
 

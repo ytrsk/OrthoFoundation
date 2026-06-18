@@ -16,6 +16,7 @@ logs/
 **/event/
 **/events.out.tfevents.*
 *.pth
+!OrthoFoudation-L.pth
 *.pt
 *.ckpt
 
@@ -24,5 +25,10 @@ logs/
 *.7z
 *.tar
 *.tar.gz
+
+
+
+
+
 
 
